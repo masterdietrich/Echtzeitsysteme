@@ -1,0 +1,11 @@
+
+#home_btn{
+    cursor: pointer;
+    margin-right: -13%;
+}
+@media screen and (max-width: 400px) {
+    #home_btn{
+        width: 100%;
+    }
+    
+}

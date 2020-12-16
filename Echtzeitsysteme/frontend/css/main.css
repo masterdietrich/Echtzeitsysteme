@@ -1,0 +1,95 @@
+
+
+.settings_btn{
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.settings_btn {background-color: #53a6cc;} 
+
+
+.overview_btn {
+
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+  .overview_btn {background-color: #53a6cc;} 
+
+  h2{
+      font-family: arial, sans-serif;
+  }
+
+  table {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    position: center;
+    width: 50%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .dropbtn {
+    background-color: #53a6cc;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+   
+}
+  .dropup {
+    position: relative;
+    display: inline-block;
+ }
+  
+  .dropup-content {
+    display: none;
+    position: absolute;
+  
+    min-width: 160px;
+    bottom: 50px;
+    z-index: 1;
+    
+  }
+  
+  .dropup-content a {
+    text-align: center;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+.dropup:hover .dropup-content {
+    display: block;
+}
+.dropup:hover .dropbtn {
+  background-color: #7fabc9;
+}
+
+
+
