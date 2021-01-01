@@ -3,13 +3,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <link type="text/css" rel="stylesheet" href="css/main.css">
+    <script src="js/java/verbrauch2.js"></script>
     <style>
         body{
             background-image: url("media/images/lines-background_MyZzH0v__SB_PM.jpg");
         }
     </style>
 </head>
-<body>
+<body onload="init()">
     <div id="home_site">
         <div class="dropdown">
             <button class="dropbtn">Settings</button>
@@ -20,6 +21,8 @@
             </div>
         </div>
     </div>
+    <div id= "countday"> </div> 
+    <div id= "countweek"> </div>
     <br><br>
     <br><br>
     <br><br>
@@ -32,14 +35,14 @@
   <tr>
     <th> </th>
     <th>Tag</th>
+    <th>Woche</th>
     <th>Monat</th>
-    <th>Jahr</th>
   </tr>
   <tr>
     <th><center>Verbrauch</center></th>
-    <td> 2.500 kWh</td>
-    <td>200.000 kWh</td>
-    <td>2400.0000 kWh</td>
+    <td id ="day"> 2.500 kWh</td>
+    <td id ="week">200.000 kWh</td>
+    <td id ="month">2400.0000 kWh</td>
 </table>
 
 <br><br>
