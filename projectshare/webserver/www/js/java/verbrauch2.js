@@ -1,5 +1,7 @@
+let mondayFlag = false
 let week =[0,0,0,0,0,0,0]
-
+const day = 86400000;
+const UKW = 120;
 
 function createAjaxRequest(){
     let request;
@@ -30,15 +32,54 @@ async function getWeek(){
         if(week[i]!==0){
             counter=counter+ week[i]
         }
-        else {
-            countDay++
+//        else {
+  //          countDay++
+    //    }
+    }
+    //let weekly = Math.round(counter + (counter/(7-countDay)*countDay))
+    //console.log(week)
+    //let con = document.getElementById("Dweek")
+    //con.innerText=weekly.toString()
+    counter = Math.round(counter*100)
+    counter = counter/100
+    document.getElementById("week").innerText = counter + " kWh"	
+}
+
+
+function getMonth(){
+    let today = new Date();
+    let dateipfad= "js/verbrauchsmonth_"+(today.getMonth()+1)+"_"+today.getFullYear()+".txt"
+    console.log(dateipfad)
+    countMonth(dateipfad)
+}
+
+
+function countMonth(dateipfad) {
+    var request = createAjaxRequest();
+    request.onreadystatechange = function(){
+        let counter  =0
+        if(4 === this.readyState && 200 === this.status) {
+            let test = this.responseText;
+            for (let i =0;i<test.length;i++){
+                if(test.charAt(i)==='['){
+                    counter++
+                }
+            }
+            month=counter
+            counter = Math.round(counter/UKW*100)
+            counter = counter/100
+            document.getElementById("month").innerText= counter + " kWh"
+
         }
     }
-    let weekly = counter + (counter/(7-countDay)*countDay)
-    console.log(weekly)
-    let con = document.getElementById("week")
-    con.innerText=weekly.toString()
+    request.open("GET",dateipfad,true);
+    request.send();
 }
+
+
+
+
+
 
 function countInput(dateipfad,i) {
     var request = createAjaxRequest();
@@ -54,9 +95,16 @@ function countInput(dateipfad,i) {
                 }
             }
             let dm = document.getElementById("day")
-            week[i]=counter;
+            week[i]=counter/UKW;
+            counter = Math.round(counter /UKW *100)
+	    counter = counter/100
             if(i===0){
-                dm.innerText = counter.toString()
+                dm.innerText = counter + " kWh"
+               // document.getElementById("Dday").innerText =counter.toString()
+		let text = this.responseText
+                let data = new Blob([text], {type: 'text/plain'});
+                var url = window.URL.createObjectURL(data);
+                document.getElementById('download_link').href = url;
             }
             return counter
         }
@@ -65,56 +113,41 @@ function countInput(dateipfad,i) {
     request.send();
 }
 
+
+
 function generateDateipfad(n){
-    let today = new Date();
-    if(today.getDate()===1){
-        console.log(today.getDate())
-        if (today.getMonth()===0){
-            today.setFullYear((today.getFullYear()-1),12,0)
-        }
-        else {
-            today.setMonth((today.getMonth()-1),0)
-        }
-    }
-    let date = today.getFullYear() + '-'
-    if(today.getMonth()+1 >9) {
-        date = date +(today.getMonth() + 1) + '-'
-    }else {
-        date = date + '0'+(today.getMonth()+1) +'-'
-    }
-    if( (today.getDate() - n)>9){
-        date=date+ (today.getDate() - n);
-    }else{
-        date= date+ '0'+(today.getDate() - n);
-    }
-    return date
-}function generateDateipfad(n){
-    let today = new Date();
-    if(today.getDate()===1){
-        console.log(today.getDate())
-        if (today.getMonth()===0){
-            today.setFullYear((today.getFullYear()-1),12,0)
-        }
-        else {
-            today.setMonth((today.getMonth()-1),0)
-        }
-    }
-    let date = today.getFullYear() + '-'
-    if(today.getMonth()+1 >9) {
-        date = date +(today.getMonth() + 1) + '-'
-    }else {
-        date = date + '0'+(today.getMonth()+1) +'-'
-    }
-    if( (today.getDate() - n)>9){
-        date=date+ (today.getDate() - n);
-    }else{
-        date= date+ '0'+(today.getDate() - n);
-    }
-    return date
+     let today = new Date();
+     let temp = new Date(today)
+     today = new Date(today - day * n)
+
+     if (!mondayFlag &&temp.getMonth()==today.getMonth()){
+         let date = today.getFullYear() + '-'
+         if (today.getMonth() + 1 > 9) {
+             date = date + (today.getMonth() + 1) + '-'
+         } else {
+             date = date + '0' + (today.getMonth() + 1) + '-'
+         }
+         today.setDate(today.getDate())
+         if ((today.getDate()) > 9) {
+             date = date + (today.getDate());
+         } else {
+             date = date + '0' + (today.getDate());
+         }
+         if(today.getDay()==1) {
+             mondayFlag = true;
+         }
+         return date
+     }
+     else{
+         return "no_date"
+     }
 }
+
+
 
 
 function init(){
     getDate();
     getWeek();
+    getMonth()
 }
