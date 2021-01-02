@@ -1,0 +1,126 @@
+let week =[0,0,0,0,0,0,0]
+
+
+function createAjaxRequest(){
+    let request;
+    if(window.XMLHttpRequest){
+        request = new XMLHttpRequest();
+    }else{
+        request = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    return request;
+}
+
+
+async function getDate( n=0 ){
+    let dateipfad= "js/verbrauchsdaten_"+generateDateipfad(n)+".txt"
+    console.log(dateipfad)
+    return countInput(dateipfad,n)
+}
+
+
+
+async function getWeek(){
+    for(let i =0; i<7;i++){
+        await getDate(i)
+    }
+    let counter =0
+    let countDay=0
+    for(let i =0 ;i < 7;i++){
+        if(week[i]!==0){
+            counter=counter+ week[i]
+        }
+        else {
+            countDay++
+        }
+    }
+    let weekly = counter + (counter/(7-countDay)*countDay)
+    console.log(weekly)
+    let con = document.getElementById("week")
+    con.innerText=weekly.toString()
+}
+
+function countInput(dateipfad,i) {
+    var request = createAjaxRequest();
+    request.onreadystatechange = function(){
+        let counter  =0
+        if(4 === this.readyState && 200 === this.status) {
+            let test = this.responseText;
+            //console.log(test)
+            for(let i =0; i<test.length;i++){
+                if(test[i]==='['){
+                    console.log("true")
+                    counter++;
+                }
+            }
+            let dm = document.getElementById("day")
+            week[i]=counter;
+            if(i===0){
+                dm.innerText = counter.toString()
+            }
+            return counter
+        }
+    }
+    request.open("GET",dateipfad,false);
+    request.send();
+}
+
+function generateDateipfad(n){
+    let today = new Date();
+    if(today.getDate()===1){
+        console.log(today.getDate())
+        if (today.getMonth()===0){
+            today.setFullYear((today.getFullYear()-1),12,0)
+        }
+        else {
+            today.setMonth((today.getMonth()-1),0)
+        }
+    }
+    let date = today.getFullYear() + '-'
+    if(today.getMonth()+1 >9) {
+        date = date +(today.getMonth() + 1) + '-'
+    }else {
+        date = date + '0'+(today.getMonth()+1) +'-'
+    }
+    if( (today.getDate() - n)>9){
+        date=date+ (today.getDate() - n);
+    }else{
+        date= date+ '0'+(today.getDate() - n);
+    }
+    return date
+}
+
+
+
+
+function generateDateipfad(n){
+    let today = new Date();
+    if(today.getDate()===1 && n >1){
+        console.log(today.getDate())
+        if (today.getMonth()===0){
+            today.setFullYear((today.getFullYear()-1),12,0)
+        }
+        else {
+            today.setMonth((today.getMonth()-1),0)
+        }
+    }
+    let date = today.getFullYear() + '-'
+        if (today.getMonth() + 1 > 9) {
+            date = date + (today.getMonth() + 1) + '-'
+        } else {
+            date = date + '0' + (today.getMonth() + 1) + '-'
+        }
+        today.setDate(today.getDate()-n)
+        if ((today.getDate()) > 9) {
+            date = date + (today.getDate() );
+        } else {
+            date = date + '0' + (today.getDate());
+        }
+    return date
+}
+
+
+function init(){
+    getDate();
+    getWeek();
+}

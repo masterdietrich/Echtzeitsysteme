@@ -67,8 +67,9 @@ class ReadOut(object):
             month.write(text)
             datei.close()
             month.close()
+#            print(y[0])
             return y[0]
-        elif y>= self.MAX and self.state ==1:
+        elif y< self.MAX and self.state ==1: #muss auf < self.Max
             self.state = 0
         return 0
 
