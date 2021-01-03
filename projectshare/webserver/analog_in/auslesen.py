@@ -17,7 +17,7 @@
 import numpy as np
 import datetime
 import time
-#import sqlite3
+import sqlite3
 
 class ReadOut(object):
 
@@ -29,9 +29,8 @@ class ReadOut(object):
         self.Len = 1
         self.AIN = '1'
         self.Run = True
-        self.SetTimeDelta = 20
+        self.SetTimeDelta =10
         self.lastTime = datetime.datetime.now()
-        self.state = 0
         #self.con = sqlite3.connect("Database.db")
   	#self.cur = self.con.cursor()
     # Setup IIO for Continous reading
@@ -55,22 +54,17 @@ class ReadOut(object):
         fd = open(self.IIODEV, "r")
 #        print('Hit ^C to stop')
         y = np.fromfile(fd, dtype='uint16', count=self.Len)
-        if y >= self.MAX and self.state ==0:
-            self.state =1
+        if y >= self.MAX and zeit-self.lastTime>datetime.timedelta(seconds=self.SetTimeDelta):
+            print(time.ctime())
+            print(y[0])
+           # self.setOutput
             self.lastTime= datetime.datetime.now()
-            dateipfad = '/home/debian/projectshare/webserver/www/js/verbrauchsdaten_%s' %(datetime.date.today()) + '.txt'
-            dateipfadMonth =  '/home/debian/projectshare/webserver/www/js/verbrauchsmonth_%s' %datetime.date.today().month + '_%s' %datetime.date.today().year + '.txt' 
+            dateipfad = '../www/js/verbrauchsdaten_%s' %datetime.date.today() + '.txt'
             datei = open(dateipfad,'a')
-            month = open(dateipfadMonth, 'a')
             text =chr(91)+"%s" % datetime.datetime.now() + chr(93) + " "
             datei.write(text) 
-            month.write(text)
             datei.close()
-            month.close()
-#            print(y[0])
             return y[0]
-        elif y< self.MAX and self.state ==1: #muss auf < self.Max
-            self.state = 0
         return 0
 
  
