@@ -1,45 +1,76 @@
 <html lang="de">
 <head>
+
+    <title>SweetHome</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
     <link type="text/css" rel="stylesheet" href="css/main.css">
+
+    <link rel="icon" href="/media/images/stromzeichen.png">
+
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-57x57.png" sizes="57x57">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-60x60.png" sizes="60x60">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-72x72.png" sizes="72x72">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-76x76.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-114x114.png" sizes="114x114">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-120x120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-128x128.png" sizes="128x128">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-144x144.png" sizes="144x144">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-152x152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-180x180.png" sizes="180x180">
+    <link rel="apple-touch-icon" href="/media/apple-touch-icon/apple-touch-icon-precomposed.png">
+    <script src="js/java/verbrauch2.js"></script>   
+    
+
+
+
+
     <style>
-        body{
-            background-image: url("media/images/lines-background_MyZzH0v__SB_PM.jpg");
-        }
+        html { 
+    background: url(media/images/background.jpg) no-repeat center center fixed #000; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
     </style>
 </head>
-<body>
+<body onload="init()">
     <div id="home_site">
         <div class="dropdown">
             <button class="dropbtn">Settings</button>
             <div class="dropdown-content">
-            <a href="#">Einträge löschen</a>
-            <a href="#">Messdaten laden</a>
-            <a href="#"></a>
+           <a id="download_link" download="currentMeasurementData_file.txt" href= >Tageswerte als .txt download</a> 
+           <a href="#"></a>
             </div>
         </div>
     </div>
+    <div id= "countday"> </div> 
+    <div id= "countweek"> </div>
     <br><br>
     <br><br>
     <br><br>
     <br><br>
     <br><br>
     <br><br>
-    <h2><center>Verbrauchsanzeige</center></h2>
+    <h2><center style="color:white">Verbrauchsanzeige</center></h2>
 
 <table>
   <tr>
     <th> </th>
     <th>Tag</th>
+    <th>Woche</th>
     <th>Monat</th>
-    <th>Jahr</th>
   </tr>
   <tr>
     <th><center>Verbrauch</center></th>
-    <td> 2.500 kWh</td>
-    <td>200.000 kWh</td>
-    <td>2400.0000 kWh</td>
+    <td id ="day">--- kWh</td>
+    <td id ="week">--- kWh</td>
+    <td id ="month">--- kWh</td>
+  </tr>
 </table>
 
 <br><br>
@@ -59,11 +90,11 @@
 
 <center><div class ="dropup" style="width: 10%;">
   <button class= "dropbtn" >Impressum</button>
-    <center> <div class="dropup-content" style="width: 100%;">
+    <center > <div class="dropup-content" style="width: 100%;">
           <br> <br>
-          E-Mail: m.kannathasan@ostfalia.de, 
-           d.dietrich@ostfalia.de, j.meyer@ostfalia.de<br> <br>
-          Matrikelnummern: Mathusan Kannathasan: 70463094, Daniel Dietrich: 70462732, Janek Meyer: <br> <br>
+          E-Mail: <br />m.kannathasan@ostfalia.de, <br /> 
+          d.dietrich@ostfalia.de, <br />jane.meyer@ostfalia.de<br> <br>
+          Matrikelnummern: <br />Mathusan Kannathasan: 70463094, <br />Daniel Dietrich: 70462732, <br />Janek Meyer: 70464002<br> <br>
       </div></center>
   </div></center>
 </body>

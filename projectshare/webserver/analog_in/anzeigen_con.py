@@ -10,7 +10,7 @@ if __name__ == '__main__':
     while reader.Run:
         try:
            reader.read(datetime.datetime.now())
-           time.sleep(0.25)
+           time.sleep(0.025)
         except KeyboardInterrupt:
            reader.close()
 
